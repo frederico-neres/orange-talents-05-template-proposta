@@ -8,10 +8,10 @@
 		<version>2.3.11.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>br.com.zupacademy.frederico.transacoescartaodecredito</groupId>
-	<artifactId>microservice_transacoes_cartao_de_credito</artifactId>
+	<groupId>br.com.zupacademy.frederico</groupId>
+	<artifactId>microservice_transacoes</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>microservice_transacoes_cartao_de_credito</name>
+	<name>microservice_transacoes</name>
 	<description>Serviço que cuida das transações do cartão de crédito</description>
 	<properties>
 		<java.version>11</java.version>
