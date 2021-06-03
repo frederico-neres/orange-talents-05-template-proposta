@@ -1,6 +1,7 @@
 package br.com.zupacademy.frederico.microservice_transacoes.dominio.proposta.dto;
 
 import br.com.zupacademy.frederico.microservice_transacoes.annotations.CPForCNPJ;
+import br.com.zupacademy.frederico.microservice_transacoes.annotations.UniqueValueDocumento;
 import br.com.zupacademy.frederico.microservice_transacoes.dominio.proposta.Proposta;
 
 import javax.validation.constraints.Email;
@@ -13,6 +14,7 @@ public class CadastroPropostaResquest {
 
     @CPForCNPJ
     @NotBlank
+    @UniqueValueDocumento(message = "estes")
     private String documento;
     @NotBlank
     @Email

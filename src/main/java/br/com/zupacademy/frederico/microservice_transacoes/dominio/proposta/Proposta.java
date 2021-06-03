@@ -1,7 +1,5 @@
 package br.com.zupacademy.frederico.microservice_transacoes.dominio.proposta;
 
-import br.com.zupacademy.frederico.microservice_transacoes.annotations.CPForCNPJ;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -17,6 +15,7 @@ public class Proposta {
     @Column(unique = true)
     private UUID id;
     @NotBlank
+    @Column(unique = true)
     private String documento;
     @NotBlank
     @Email
