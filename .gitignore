@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Other ###
+!**/html
+!**/pgdata
+html
+pgdata
