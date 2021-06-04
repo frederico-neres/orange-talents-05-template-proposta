@@ -27,6 +27,9 @@ public class Proposta {
     @NotNull
     @Positive
     private BigDecimal salarioBruto;
+    @Enumerated(EnumType.STRING)
+    private StatusProposta status;
+
 
     public Proposta(@NotBlank String documento, @NotBlank @Email String email, @NotBlank String nome,
                     @NotBlank String endereço, @NotNull @Positive BigDecimal salarioBruto) {
@@ -41,6 +44,22 @@ public class Proposta {
 
     public UUID getId() {
         return id;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void mudarStatus(StatusProposta status) {
+        this.status = status;
+    }
+
+    public StatusProposta getStatus() {
+        return status;
     }
 }
 
