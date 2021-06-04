@@ -14,7 +14,7 @@ public class CadastroPropostaResquest {
 
     @CPForCNPJ
     @NotBlank
-    @UniqueValueDocumento(message = "estes")
+    @UniqueValueDocumento()
     private String documento;
     @NotBlank
     @Email

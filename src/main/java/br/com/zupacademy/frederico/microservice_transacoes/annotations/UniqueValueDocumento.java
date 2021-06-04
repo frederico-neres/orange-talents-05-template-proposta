@@ -14,7 +14,7 @@ import java.lang.annotation.*;
 @ReportAsSingleViolation
 public @interface UniqueValueDocumento {
 
-    String message() default "";
+    String message() default "Já existe uma proposta cadastrada para esse documento";
 
     Class<?>[] groups() default {};
 
