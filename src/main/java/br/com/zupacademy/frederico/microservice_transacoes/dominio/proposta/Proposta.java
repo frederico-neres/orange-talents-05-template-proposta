@@ -59,6 +59,10 @@ public class Proposta {
         return nome;
     }
 
+    public String getCartao() {
+        return cartao;
+    }
+
     public void mudarStatus(StatusProposta status) {
         this.status = status;
     }
