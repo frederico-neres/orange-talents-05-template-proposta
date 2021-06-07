@@ -29,7 +29,12 @@ public class Proposta {
     private BigDecimal salarioBruto;
     @Enumerated(EnumType.STRING)
     private StatusProposta status;
+    @Column(nullable = true)
+    private String cartao;
 
+    @Deprecated
+    public Proposta() {
+    }
 
     public Proposta(@NotBlank String documento, @NotBlank @Email String email, @NotBlank String nome,
                     @NotBlank String endereço, @NotNull @Positive BigDecimal salarioBruto) {
@@ -56,6 +61,10 @@ public class Proposta {
 
     public void mudarStatus(StatusProposta status) {
         this.status = status;
+    }
+
+    public void atrelarCartao(String cartao) {
+        this.cartao = cartao;
     }
 
     public StatusProposta getStatus() {
