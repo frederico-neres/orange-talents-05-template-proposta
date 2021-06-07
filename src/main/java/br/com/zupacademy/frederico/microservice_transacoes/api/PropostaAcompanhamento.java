@@ -24,12 +24,10 @@ public class PropostaAcompanhamento {
     ResponseEntity<?> acompanhamentoById(@PathVariable UUID idProposta) {
         Optional<Proposta> proposta = propostaRepository.findById(idProposta);
 
-        System.out.println("532.957.478-14".replaceAll("(^\\d{3}\\x2E\\d{3}\\x2E\\d{3}\\x2D\\d{2}$)", "*"));
         if(!proposta.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-
-
+        
         return ResponseEntity.ok().body(new PropostaAcompanhamentoResponse(proposta.get()));
     }
 }
