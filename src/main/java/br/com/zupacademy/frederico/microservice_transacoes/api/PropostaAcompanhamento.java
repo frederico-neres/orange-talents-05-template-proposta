@@ -24,9 +24,7 @@ public class PropostaAcompanhamento {
     ResponseEntity<?> acompanhamentoById(@PathVariable UUID idProposta) {
         Optional<Proposta> proposta = propostaRepository.findById(idProposta);
 
-        if(!proposta.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
+        if(!proposta.isPresent()) { return ResponseEntity.notFound().build();}
         
         return ResponseEntity.ok().body(new PropostaAcompanhamentoResponse(proposta.get()));
     }
