@@ -1,5 +1,7 @@
 package br.com.zupacademy.frederico.microservice_transacoes.dominio.proposta;
 
+import br.com.zupacademy.frederico.microservice_transacoes.dominio.cartao.Cartao;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -29,8 +31,9 @@ public class Proposta {
     private BigDecimal salarioBruto;
     @Enumerated(EnumType.STRING)
     private StatusProposta status;
-    @Column(nullable = true)
-    private String cartao;
+    @OneToOne(cascade = CascadeType.MERGE)
+    private Cartao cartao;
+
 
     @Deprecated
     public Proposta() {
@@ -59,15 +62,15 @@ public class Proposta {
         return nome;
     }
 
-    public String getCartao() {
-        return cartao;
+    public String getNumeroCartão() {
+        return cartao.getId();
     }
 
     public void mudarStatus(StatusProposta status) {
         this.status = status;
     }
 
-    public void atrelarCartao(String cartao) {
+    public void atrelarCartao(Cartao cartao) {
         this.cartao = cartao;
     }
 

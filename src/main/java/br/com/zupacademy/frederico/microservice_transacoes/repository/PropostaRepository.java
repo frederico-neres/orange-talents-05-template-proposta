@@ -9,5 +9,5 @@ import java.util.UUID;
 
 public interface PropostaRepository extends JpaRepository<Proposta, UUID> {
 
-    List<Proposta> findByStatusAndCartao(StatusProposta status, String cartao);
+    List<Proposta> findByStatusAndCartao_Id(StatusProposta status, String cartao);
 }

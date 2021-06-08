@@ -1,5 +1,6 @@
 package br.com.zupacademy.frederico.microservice_transacoes.scheduled.cartao;
 
+import br.com.zupacademy.frederico.microservice_transacoes.dominio.cartao.Cartao;
 import br.com.zupacademy.frederico.microservice_transacoes.dominio.proposta.Proposta;
 import br.com.zupacademy.frederico.microservice_transacoes.dominio.proposta.StatusProposta;
 import br.com.zupacademy.frederico.microservice_transacoes.externalApi.cartao.CartaoEndpoint;
@@ -26,13 +27,14 @@ public class CartaoScheduled {
     public void atrelarCartaoAProposta() {
 
         List<Proposta> propostas  = this.propostaRepository
-                .findByStatusAndCartao(StatusProposta.ELEGIVEL, null);
+                .findByStatusAndCartao_Id(StatusProposta.ELEGIVEL, null);
 
         propostas.forEach(proposta -> {
             try {
-                CartaoResponse cartao = cartaoEndpoint.getCartaoByIdProposta(proposta.getId());
-                proposta.atrelarCartao(cartao.getId());
+                CartaoResponse cartaoResponse = cartaoEndpoint.getCartaoByIdProposta(proposta.getId());
+                Cartao cartao = new Cartao(cartaoResponse.getId());
 
+                proposta.atrelarCartao(cartao);
                 propostaRepository.save(proposta);
             }catch (FeignException.FeignClientException exception) {}
 

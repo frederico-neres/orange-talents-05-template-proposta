@@ -15,7 +15,7 @@ public class PropostaAcompanhamentoResponse {
 
     public PropostaAcompanhamentoResponse(Proposta proposta) {
         String documento = proposta.getDocumento();
-        String cartao = proposta.getCartao();
+        String cartao = proposta.getNumeroCartão();
 
         this.id = proposta.getId();
         this.documento = documento.replaceAll("(?!(?:\\D*\\d){6,8}$|(?:\\D*\\d){1,2}$)\\d", "*");;
