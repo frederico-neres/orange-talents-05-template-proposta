@@ -62,7 +62,7 @@ public class Proposta {
         return nome;
     }
 
-    public String getNumeroCartão() {
+    public String getNumeroCartao() {
         return cartao.getId();
     }
 
