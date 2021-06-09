@@ -1,6 +1,5 @@
 package br.com.zupacademy.frederico.microservice_transacoes.api;
 
-
 import br.com.zupacademy.frederico.microservice_transacoes.dominio.biometria.Biometria;
 import br.com.zupacademy.frederico.microservice_transacoes.dominio.biometria.dto.BiometriaRequest;
 import br.com.zupacademy.frederico.microservice_transacoes.dominio.cartao.Cartao;
@@ -34,7 +33,7 @@ public class CadastroBiometria {
 
         Biometria biometria = biometriaRequest.toModel(cartao);
         entityManager.persist(biometria);
-
+        
         URI uri = componentsBuilder.path("/api/biometrias/{id}").buildAndExpand(biometria.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
