@@ -15,14 +15,12 @@ public class PropostaAcompanhamentoResponse {
 
     public PropostaAcompanhamentoResponse(Proposta proposta) {
         String documento = proposta.getDocumento();
-        String cartao = proposta.getNumeroCartao();
 
         this.id = proposta.getId();
         this.documento = documento.replaceAll("(?!(?:\\D*\\d){6,8}$|(?:\\D*\\d){1,2}$)\\d", "*");;
         this.nome = proposta.getNome();
         this.status = proposta.getStatus();
-        this.cartao = cartao != null ? cartao
-                .replaceAll("(?!(?:\\D*\\d){14}$|(?:\\D*\\d){1,3}$)\\d", "*"):null;
+        this.cartao = proposta.getNumeroCartao();
     }
 
 

@@ -22,24 +22,24 @@ public class CadastroPropostaResquest {
     @NotBlank
     private String nome;
     @NotBlank
-    private String endereço;
+    private String endereco;
     @NotNull
     @Positive
     private BigDecimal salarioBruto;
 
 
     public CadastroPropostaResquest(@NotBlank String documento,@NotBlank @Email String email, @NotBlank String nome,
-                                    @NotBlank String endereço, @NotNull @Positive BigDecimal salarioBruto) {
+                                    @NotBlank String endereco, @NotNull @Positive BigDecimal salarioBruto) {
         this.documento = documento;
         this.email = email;
         this.nome = nome;
-        this.endereço = endereço;
+        this.endereco = endereco;
         this.salarioBruto = salarioBruto;
     }
 
 
     public Proposta toModel() {
-        return new Proposta(documento, email, nome, endereço, salarioBruto);
+        return new Proposta(documento, email, nome, endereco, salarioBruto);
     }
 
 }

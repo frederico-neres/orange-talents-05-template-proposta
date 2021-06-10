@@ -25,7 +25,7 @@ public class Proposta {
     @NotBlank
     private String nome;
     @NotBlank
-    private String endereço;
+    private String endereco;
     @NotNull
     @Positive
     private BigDecimal salarioBruto;
@@ -40,12 +40,12 @@ public class Proposta {
     }
 
     public Proposta(@NotBlank String documento, @NotBlank @Email String email, @NotBlank String nome,
-                    @NotBlank String endereço, @NotNull @Positive BigDecimal salarioBruto) {
+                    @NotBlank String endereco, @NotNull @Positive BigDecimal salarioBruto) {
 
         this.documento = documento;
         this.email = email;
         this.nome = nome;
-        this.endereço = endereço;
+        this.endereco = endereco;
         this.salarioBruto = salarioBruto;
         this.id = UUID.randomUUID();
     }
