@@ -1,5 +1,6 @@
 package br.com.zupacademy.frederico.microservice_transacoes.dominio.cartao;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -16,7 +17,7 @@ public class Bloqueio {
     private OffsetDateTime instanteBloqueio;
     private String ipClient;
     private String userAgent;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     private Cartao cartao;
 
     @Deprecated
@@ -29,5 +30,9 @@ public class Bloqueio {
         this.cartao = cartao;
         this.ipClient = ipClient;
         this.userAgent = userAgent;
+    }
+
+    public Cartao getCartao() {
+        return cartao;
     }
 }

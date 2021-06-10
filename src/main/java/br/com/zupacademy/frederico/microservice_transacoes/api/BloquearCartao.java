@@ -24,14 +24,13 @@ public class BloquearCartao {
     @Transactional
     public ResponseEntity<?> bloquear(@PathVariable String idCartao, HttpServletRequest request) {
 
-        Cartao cartao = entityManager.find(Cartao.class, idCartao);
+        Cartao cartao = entityManager.find(Cartao.class, idCartao);;
 
-        if(cartao == null) {
+        if(cartao.equals(null)) {
             return ResponseEntity.notFound().build();
         }
 
-        Bloqueio bloqueioExistente = cartao.getBloqueio();
-        if(bloqueioExistente != null) {
+        if(cartao.isCartaoBloqueadoOrSolicitacaoBloqueio()) {
             return ResponseEntity.unprocessableEntity().build();
         }
 
@@ -40,6 +39,7 @@ public class BloquearCartao {
 
         Bloqueio bloqueio = new Bloqueio(cartao, ipClient, userAgent);
         entityManager.persist(bloqueio);
+        cartao.estadoCartaoParaSolicitacaoBloqueio();
 
         return ResponseEntity.ok().build();
     }

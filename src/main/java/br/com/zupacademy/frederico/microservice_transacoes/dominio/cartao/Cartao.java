@@ -1,16 +1,15 @@
 package br.com.zupacademy.frederico.microservice_transacoes.dominio.cartao;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import javax.transaction.Transactional;
 
 @Entity
 public class Cartao {
 
     @Id
     private String id;
-    @OneToOne(mappedBy = "cartao")
-    private Bloqueio bloqueio;
+    @Enumerated(EnumType.STRING)
+    private EstadoCartao estadoCartao;
 
     @Deprecated
     public Cartao() {
@@ -18,13 +17,36 @@ public class Cartao {
 
     public Cartao(String id) {
         this.id = id;
+        this.estadoCartao = EstadoCartao.DESBLOQUEADO;
     }
 
     public String getId() {
         return id;
     }
 
-    public Bloqueio getBloqueio() {
-        return bloqueio;
+
+    public Boolean isCartaoBloqueado() {
+        if(this.estadoCartao.equals(null)) return false;
+        return this.estadoCartao.equals(EstadoCartao.BLOQUEADO);
     }
+
+    public Boolean isCartaoSolicitacaoBloqueio() {
+        if(this.estadoCartao.equals(null)) return false;
+        return this.estadoCartao.equals(EstadoCartao.SOLICITACAO_BLOQUEIO);
+    }
+
+    public Boolean isCartaoBloqueadoOrSolicitacaoBloqueio() {
+        if(this.estadoCartao.equals(null)) return false;
+        return this.isCartaoBloqueado() || this.isCartaoSolicitacaoBloqueio();
+    }
+
+    public void estadoCartaoParaBloqueado() {
+        this.estadoCartao = EstadoCartao.BLOQUEADO;
+    }
+
+    public void estadoCartaoParaSolicitacaoBloqueio() {
+        this.estadoCartao = EstadoCartao.SOLICITACAO_BLOQUEIO;
+    }
+
+
 }
