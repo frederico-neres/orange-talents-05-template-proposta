@@ -26,7 +26,7 @@ public class BloquearCartao {
 
         Cartao cartao = entityManager.find(Cartao.class, idCartao);;
 
-        if(cartao.equals(null)) {
+        if(cartao == null) {
             return ResponseEntity.notFound().build();
         }
 
