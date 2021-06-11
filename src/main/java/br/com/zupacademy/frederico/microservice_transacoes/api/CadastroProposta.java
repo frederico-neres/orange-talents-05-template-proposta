@@ -7,6 +7,7 @@ import br.com.zupacademy.frederico.microservice_transacoes.externalApi.solicitac
 import br.com.zupacademy.frederico.microservice_transacoes.externalApi.solicitacao.dto.SolicitacaoRequest;
 import br.com.zupacademy.frederico.microservice_transacoes.externalApi.solicitacao.dto.SolicitacaoResponse;
 
+import br.com.zupacademy.frederico.microservice_transacoes.metricas.Metricas;
 import feign.FeignException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,10 +24,13 @@ public class CadastroProposta {
 
     EntityManager entityManager;
     SolicitacaoEndpoint solicitacaoEndpoint;
+    Metricas metricas;
 
-    public CadastroProposta(EntityManager entityManager, SolicitacaoEndpoint solicitacaoEndpoint) {
+    public CadastroProposta(EntityManager entityManager, SolicitacaoEndpoint solicitacaoEndpoint,
+                            Metricas metricas) {
         this.entityManager = entityManager;
         this.solicitacaoEndpoint = solicitacaoEndpoint;
+        this.metricas = metricas;
     }
 
     @PostMapping
@@ -50,6 +54,7 @@ public class CadastroProposta {
         proposta.mudarStatus(statusProposta);
         entityManager.persist(proposta);
 
+        metricas.counter();
         URI uri = uriComponentsBuilder.path("/api/propostas/acompanhamento/{id}")
                 .buildAndExpand(proposta.getId()).toUri();
         return ResponseEntity.created(uri).build();

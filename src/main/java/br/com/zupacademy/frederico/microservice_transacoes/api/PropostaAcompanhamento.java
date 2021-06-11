@@ -2,6 +2,7 @@ package br.com.zupacademy.frederico.microservice_transacoes.api;
 
 import br.com.zupacademy.frederico.microservice_transacoes.dominio.proposta.Proposta;
 import br.com.zupacademy.frederico.microservice_transacoes.dominio.proposta.dto.PropostaAcompanhamentoResponse;
+import br.com.zupacademy.frederico.microservice_transacoes.metricas.Metricas;
 import br.com.zupacademy.frederico.microservice_transacoes.repository.PropostaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +16,11 @@ import java.util.regex.Pattern;
 public class PropostaAcompanhamento {
 
     PropostaRepository propostaRepository;
+    Metricas metricas;
 
-    public PropostaAcompanhamento(PropostaRepository propostaRepository) {
+    public PropostaAcompanhamento(PropostaRepository propostaRepository, Metricas metricas) {
         this.propostaRepository = propostaRepository;
+        this.metricas = metricas;
     }
 
     @GetMapping("/{idProposta}")
@@ -25,7 +28,8 @@ public class PropostaAcompanhamento {
         Optional<Proposta> proposta = propostaRepository.findById(idProposta);
 
         if(!proposta.isPresent()) { return ResponseEntity.notFound().build();}
-        
+
+        metricas.timer();
         return ResponseEntity.ok().body(new PropostaAcompanhamentoResponse(proposta.get()));
     }
 }
