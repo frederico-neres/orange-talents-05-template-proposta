@@ -9,14 +9,17 @@ import br.com.zupacademy.frederico.microservice_transacoes.externalApi.cartao.dt
 import br.com.zupacademy.frederico.microservice_transacoes.repository.CarteiraRepository;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.Optional;
 
 @RestController
@@ -32,10 +35,11 @@ public class AssociarCartao {
     @Autowired
     CartaoEndpoint cartaoEndpoint;
 
-    @PostMapping("/paypal")
+    @PostMapping("")
     @Transactional
     public ResponseEntity AssociarPaypal(@PathVariable("id") String id,
-                                         @RequestBody @Valid AssociarCartaoRequest associarCartaoRequest ) {
+                                         @RequestBody @Valid AssociarCartaoRequest associarCartaoRequest,
+                                         UriComponentsBuilder uriComponentsBuilder) {
 
         Cartao cartao = entityManager.find(Cartao.class, id);
         if(cartao == null) {
@@ -51,16 +55,20 @@ public class AssociarCartao {
             return ResponseEntity.unprocessableEntity().build();
         }
 
+        CarteiraDigital carteira = associarCartaoRequest.toModel(cartao, carteiraDigital);
         try{
            cartaoEndpoint.carteiraDigital(id, new CarteiraDigitalRequest(
                     associarCartaoRequest.getEmail(), carteiraDigital));
 
-            CarteiraDigital carteira = associarCartaoRequest.toModel(cartao, carteiraDigital);
             carteiraRepository.save(carteira);
         }
-        catch (FeignException.FeignClientException exception) {}
+        catch (FeignException.FeignClientException exception) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
 
-        return ResponseEntity.ok().build();
+        URI uri = uriComponentsBuilder.path("/api/cartao/carteira/{id}")
+                .buildAndExpand(carteira.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
 

@@ -7,6 +7,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class CarteiraDigitalRequest {
 
@@ -15,7 +16,7 @@ public class CarteiraDigitalRequest {
     @JsonProperty
     private String email;
     @Enumerated(EnumType.STRING)
-    @NotBlank
+    @NotNull
     @JsonProperty
     private TipoCarteiraDigital carteira;
 

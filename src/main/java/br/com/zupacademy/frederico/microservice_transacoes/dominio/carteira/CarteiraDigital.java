@@ -32,4 +32,8 @@ public class CarteiraDigital {
         this.email = email;
         this.carteira = carteira;
     }
+
+    public UUID getId() {
+        return id;
+    }
 }
