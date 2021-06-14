@@ -46,7 +46,7 @@ public class AssociarCartao {
             return ResponseEntity.notFound().build();
         }
 
-        TipoCarteiraDigital carteiraDigital = TipoCarteiraDigital.PAYPAL;
+        TipoCarteiraDigital carteiraDigital = associarCartaoRequest.getCarteira();
 
         Optional<CarteiraDigital> byCartaoAndCarteira = carteiraRepository
                 .findByCartaoAndCarteira(cartao, carteiraDigital);
@@ -55,7 +55,7 @@ public class AssociarCartao {
             return ResponseEntity.unprocessableEntity().build();
         }
 
-        CarteiraDigital carteira = associarCartaoRequest.toModel(cartao, carteiraDigital);
+        CarteiraDigital carteira = associarCartaoRequest.toModel(cartao);
         try{
            cartaoEndpoint.carteiraDigital(id, new CarteiraDigitalRequest(
                     associarCartaoRequest.getEmail(), carteiraDigital));
