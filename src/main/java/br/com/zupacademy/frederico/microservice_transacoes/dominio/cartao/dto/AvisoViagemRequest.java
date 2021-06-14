@@ -27,4 +27,12 @@ public class AvisoViagemRequest {
         String userAgent = request.getHeader("User-Agent");
         return new AvisoViagem(cartao, destino, dataTermino, ipClient, userAgent);
     }
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public OffsetDateTime getDataTermino() {
+        return dataTermino;
+    }
 }
