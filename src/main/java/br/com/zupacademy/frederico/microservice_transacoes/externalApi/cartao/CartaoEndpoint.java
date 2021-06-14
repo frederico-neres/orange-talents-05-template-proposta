@@ -22,5 +22,7 @@ public interface CartaoEndpoint {
     @RequestMapping(method = RequestMethod.POST, path = "/cartoes/{id}/avisos")
     CartaoAvisoViagemResponse notificarAvisoViagem(@PathVariable("id") String id, @RequestBody @Valid CartaoAvisoViagemRequest cartaoAvisoViagemRequest);
 
+    @RequestMapping(method = RequestMethod.POST, path = "/cartoes/{id}/carteiras")
+    CarteiraDigitalResponse carteiraDigital(@PathVariable("id") String id, @RequestBody @Valid CarteiraDigitalRequest carteiraDigitalRequest );
 
 }
