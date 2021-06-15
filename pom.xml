@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.zupacademy.frederico</groupId>
 	<artifactId>microservice_transacoes</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>microservice_transacoes</name>
 	<description>Serviço que cuida das transações do cartão de crédito</description>
 	<properties>

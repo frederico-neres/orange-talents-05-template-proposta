@@ -16,6 +16,7 @@ public class BasicConficuration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.headers().httpStrictTransportSecurity().disable();
+        http.authorizeRequests().antMatchers("/actuator/**").permitAll();
         http.authorizeRequests(request->
                 request.antMatchers("/**")
                         .hasAuthority("SCOPE_client-scope")
