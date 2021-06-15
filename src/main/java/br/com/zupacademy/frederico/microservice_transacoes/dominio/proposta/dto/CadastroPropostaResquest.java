@@ -42,4 +42,7 @@ public class CadastroPropostaResquest {
         return new Proposta(documento, email, nome, endereco, salarioBruto);
     }
 
+    public String getEmail() {
+        return email;
+    }
 }
