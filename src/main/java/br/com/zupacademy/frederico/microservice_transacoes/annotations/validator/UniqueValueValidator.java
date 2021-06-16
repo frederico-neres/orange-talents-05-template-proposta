@@ -1,6 +1,7 @@
 package br.com.zupacademy.frederico.microservice_transacoes.annotations.validator;
 
 import br.com.zupacademy.frederico.microservice_transacoes.annotations.UniqueValueDocumento;
+import br.com.zupacademy.frederico.microservice_transacoes.dominio.proposta.Proposta;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,7 +19,10 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValueDocu
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
         Query query = entityManager.createQuery("SELECT 1 FROM Proposta WHERE documento = :value");
-        query.setParameter("value", value);
+
+        String documento = (String) value;
+        query.setParameter("value", Proposta.criptografarString(documento));
+
         List<?> list = query.getResultList();
 
         return list.isEmpty();

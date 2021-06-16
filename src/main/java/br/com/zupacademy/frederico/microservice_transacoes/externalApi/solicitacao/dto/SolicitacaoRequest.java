@@ -19,9 +19,9 @@ public class SolicitacaoRequest {
     @JsonProperty
     private String nome;
 
-    public SolicitacaoRequest(Proposta proposta) {
+    public SolicitacaoRequest(Proposta proposta, String documento) {
         this.idProposta = proposta.getId();
-        this.documento = proposta.getDocumento();
+        this.documento = documento;
         this.nome = proposta.getNome();
     }
 

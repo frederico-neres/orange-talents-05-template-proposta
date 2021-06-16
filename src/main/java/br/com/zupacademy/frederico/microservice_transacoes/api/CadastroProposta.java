@@ -52,7 +52,8 @@ public class CadastroProposta {
         StatusProposta statusProposta = null;
         try {
             SolicitacaoResponse solicitacao =
-                    solicitacaoEndpoint.solicitacao(new SolicitacaoRequest(proposta));
+                    solicitacaoEndpoint.solicitacao(new SolicitacaoRequest(proposta,
+                            cadastroPropostaResquest.getDocumento()));
 
             statusProposta = solicitacao.getResultadoSolicitacao()
                     .convertToStatusProposta();

@@ -8,16 +8,13 @@ import java.util.UUID;
 public class PropostaAcompanhamentoResponse {
 
     private UUID id;
-    private String documento;
     private String nome;
     private StatusProposta status;
     private String cartao;
 
     public PropostaAcompanhamentoResponse(Proposta proposta) {
-        String documento = proposta.getDocumento();
 
         this.id = proposta.getId();
-        this.documento = documento.replaceAll("(?!(?:\\D*\\d){6,8}$|(?:\\D*\\d){1,2}$)\\d", "*");;
         this.nome = proposta.getNome();
         this.status = proposta.getStatus();
         this.cartao = proposta.getNumeroCartao();
@@ -26,10 +23,6 @@ public class PropostaAcompanhamentoResponse {
 
     public UUID getId() {
         return id;
-    }
-
-    public String getDocumento() {
-        return documento;
     }
 
     public String getNome() {

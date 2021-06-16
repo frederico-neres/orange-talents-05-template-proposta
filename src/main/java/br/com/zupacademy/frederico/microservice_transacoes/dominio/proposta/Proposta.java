@@ -1,6 +1,8 @@
 package br.com.zupacademy.frederico.microservice_transacoes.dominio.proposta;
 
 import br.com.zupacademy.frederico.microservice_transacoes.dominio.cartao.Cartao;
+import org.springframework.security.crypto.encrypt.Encryptors;
+import org.springframework.security.crypto.encrypt.TextEncryptor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -34,6 +36,10 @@ public class Proposta {
     @OneToOne(cascade = CascadeType.MERGE)
     private Cartao cartao;
 
+    @Transient
+    final static private String key = "ca97d7362618da06b6879ff0e63f3a6a3227a3fabe2b34918ac7e054de9050c7d3352ce735a62074";
+    @Transient
+    final static private String salt = "ced6c100b5a877ac";
 
     @Deprecated
     public Proposta() {
@@ -42,7 +48,7 @@ public class Proposta {
     public Proposta(@NotBlank String documento, @NotBlank @Email String email, @NotBlank String nome,
                     @NotBlank String endereco, @NotNull @Positive BigDecimal salarioBruto) {
 
-        this.documento = documento;
+        this.criptografarDocumento(documento);
         this.email = email;
         this.nome = nome;
         this.endereco = endereco;
@@ -52,10 +58,6 @@ public class Proposta {
 
     public UUID getId() {
         return id;
-    }
-
-    public String getDocumento() {
-        return documento;
     }
 
     public String getNome() {
@@ -77,5 +79,17 @@ public class Proposta {
     public StatusProposta getStatus() {
         return status;
     }
+
+    private void criptografarDocumento(String documento) {
+        this.documento = Proposta.criptografarString(documento);
+    }
+
+    public static String criptografarString(String text) {
+        TextEncryptor textEncryptor = Encryptors.queryableText(key, salt);
+        String encrypt = textEncryptor.encrypt(text);
+
+        return encrypt;
+    }
+
 }
 

@@ -45,4 +45,8 @@ public class CadastroPropostaResquest {
     public String getEmail() {
         return email;
     }
+
+    public String getDocumento() {
+        return documento;
+    }
 }
